@@ -46,6 +46,19 @@ public class SampleDataGenerator {
             .withGeoLocation(aGeoLocation())
             .build();
   }
+  public static RequestLog aRequestLogWithStatusCode404AndCompanyId10() {
+    return RequestLog.RequestLogBuilder
+            .aRequestLog()
+            .withCompanyId(10)
+            .withUserId(nextLong(10, 20))
+            .withCreatedTime(now().minusSeconds(nextInt(100, 300)))
+            .withRequestDuration(nextLong(50, 600))
+            .withRequestStatus(401)
+            .withRequestPath(getRandomElement(SAMPLE_API_ENDPOINTS))
+            .withRequestMethod(getRandomElement(SAMPLE_REQUEST_METHOD))
+            .withGeoLocation(aGeoLocation())
+            .build();
+  }
 
   public static RequestLog aRequestLogWithRequestPathToUsers() {
     return RequestLog.RequestLogBuilder

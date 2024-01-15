@@ -35,13 +35,13 @@ public class ReportServiceTest {
     @Test
     public void calculateNumberOfRequestsPerCompanyThrowsException() {
         List<RequestLog> requestLogs = new ArrayList<>();
-        Assert.assertThrows(RequestNotFoundException.class, () -> reportService.calculateNumberOfRequestsPerCompany(requestLogs));
+        Assert.assertEquals(0, reportService.calculateNumberOfRequestsPerCompany(requestLogs).size());
     }
 
     @Test
-    public void findRequestsWithErrorReturnsCorrectSize() throws RequestNotFoundException {
+    public void findRequestsWithErrorReturnsCorrectSize()  {
         RequestLog requestLog1 = SampleDataGenerator.aRequestLogWithStatusCode401();
-        RequestLog requestLog2 = SampleDataGenerator.aRequestLogWithStatusCode401();
+        RequestLog requestLog2 = SampleDataGenerator.aRequestLogWithStatusCode404AndCompanyId10();
 
 
         List<RequestLog> requestLogs = new ArrayList<>(List.of(requestLog1, requestLog2));
@@ -51,9 +51,9 @@ public class ReportServiceTest {
     }
 
     @Test
-    public void findRequestsWithErrorThrowsException() {
+    public void findRequestsWithErrorReturnZeroForNoRequestLog() {
         List<RequestLog> requestLogs = new ArrayList<>();
-        Assert.assertThrows(RequestNotFoundException.class, () -> reportService.findRequestsWithError(requestLogs));
+        Assert.assertEquals(0, reportService.findRequestsWithError(requestLogs).size());
     }
 
     @Test
